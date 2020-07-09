@@ -43,8 +43,9 @@ class PowerPacker:
         offs_len[3] = self.src[7]
 
         while(True):
-            copy_bytes = self.read_bits(1)
-            if(copy_bytes == 0):
+            copy_bytes = 0
+            verbatim_flag = self.read_bits(1)
+            if(verbatim_flag == 0):
                 copy_bytes = 1
                 while(True):
                     copy_len = self.read_bits(2)
