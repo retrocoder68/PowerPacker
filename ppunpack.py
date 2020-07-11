@@ -3,6 +3,7 @@
 
 import argparse
 import struct
+import sys
 
 class PowerPacker:
     def __init__(self):
@@ -96,11 +97,16 @@ class PowerPacker:
 def main():
     parser = argparse.ArgumentParser("PowerPacker 2.0")
     parser.add_argument('filename', help='the file to unpack')
+    parser.add_argument('-o', '--outfile', action='store',
+        help='Write output to OUTFILE')
     args = parser.parse_args()
-    args.filename
     pp = PowerPacker()
     unpacked_data = pp.unpack_file(args.filename)
-    print(unpacked_data)
+    if args.outfile is not None:
+        with open(args.outfile, "wb") as f:
+            f.write(unpacked_data)
+    else:
+        sys.stdout.buffer.write(unpacked_data)
 
 if __name__ == "__main__":
     main()
